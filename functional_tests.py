@@ -24,7 +24,7 @@ class NewVisitorTest(unittest.TestCase):
 		#User invited to enter a To-do Item right away
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		self.assertEqual(
-				inputbox.get_attribute('plaeholder'),
+				inputbox.get_attribute('placeholder'),
 				'Enter a to-do item'
 		)
 
@@ -34,12 +34,13 @@ class NewVisitorTest(unittest.TestCase):
 
 		#When the user hits enter, the page update, and now lists 
 		# "1. Read Capital in the 21st Century" as in item in a To-Do list 
-		inputbox.send_keys(KEYS.ENTER)
+		inputbox.send_keys(Keys.ENTER)
 
 		table = self.browser.find_element_by_id('id_list_table')
-		rows.table.find_elements_by_tag_name('tr')
+		rows = table.find_elements_by_tag_name('tr')
 		self.assertTrue(
-				any(row.text == '1:Capital in the 21st Century' for row in rows)
+				any(row.text == '1:Capital in the 21st Century' for row in rows),
+				"New to-do item did not appear in table"
 		)
 
 		#There's still a textbox inviting the user to add another item 
